@@ -952,9 +952,18 @@
 
   document.getElementById('google-signin-btn').addEventListener('click', function(){
     if (!auth) return;
+    document.getElementById('auth-err').textContent = '';
     var provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithRedirect(provider).catch(function(err){
-      document.getElementById('auth-err').textContent = err.message || String(err);
+    auth.signInWithPopup(provider).catch(function(err){
+      if (err && err.code === 'auth/popup-blocked'){
+        document.getElementById('auth-err').textContent = 'Your browser blocked the sign-in popup — allow popups for this site and try again.';
+      } else if (err && err.code === 'auth/cancelled-popup-request'){
+        // user clicked twice / a second popup was requested; ignore
+      } else if (err && err.code === 'auth/popup-closed-by-user'){
+        // user closed the popup; no error needed
+      } else {
+        document.getElementById('auth-err').textContent = (err && (err.code + ': ' + err.message)) || String(err);
+      }
     });
   });
   document.getElementById('signOutBtn').addEventListener('click', function(){
@@ -991,9 +1000,6 @@
       gate.classList.remove('hidden');
       return; // config not filled in yet
     }
-    auth.getRedirectResult().catch(function(err){
-      document.getElementById('auth-err').textContent = err.message || String(err);
-    });
     auth.onAuthStateChanged(function(user){
       if (user){
         currentUid = user.uid;
