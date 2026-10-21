@@ -27,7 +27,6 @@
     --mono:'IBM Plex Mono', ui-monospace, monospace;
     --grotesk:'Space Grotesk', ui-sans-serif, sans-serif;
   }
-  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
   html,body{margin:0; padding:0; background:var(--bg); color:var(--text); height:100%;}
   body{
@@ -38,25 +37,7 @@
     padding-bottom: env(safe-area-inset-bottom);
   }
   input, textarea{-webkit-user-select:text; user-select:text;}
-  #app{display:none; flex-direction:column; height:100vh; max-width:480px; margin:0 auto; position:relative;}
-  #app.shown{display:flex;}
-
-  /* ---- auth gate ---- */
-  #auth-gate{
-    position:fixed; inset:0; z-index:100; background:var(--bg);
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    padding:28px; text-align:center; gap:14px;
-  }
-  #auth-gate.hidden{display:none;}
-  #auth-gate .mark{font-family:var(--grotesk); font-weight:700; font-size:24px; letter-spacing:0.02em;}
-  #auth-gate .mark .dot{color:var(--teal);}
-  #auth-gate p{color:var(--text-dim); font-size:13px; max-width:300px; line-height:1.55; margin:0; font-family:var(--mono);}
-  #auth-gate .g-btn{
-    display:flex; align-items:center; gap:10px; background:var(--text); color:#14161b; border:none;
-    border-radius:8px; padding:12px 22px; font-family:var(--grotesk); font-weight:700; font-size:14.5px; cursor:pointer;
-    margin-top:8px;
-  }
-  #auth-gate .err{color:var(--red); font-size:11.5px; max-width:300px; font-family:var(--mono);}
+  #app{display:flex; flex-direction:column; height:100vh; max-width:480px; margin:0 auto; position:relative;}
 
   /* ---- header ---- */
   header{
@@ -65,16 +46,14 @@
     border-bottom:1px solid var(--border);
     flex-shrink:0;
   }
-  .brand{display:flex; align-items:baseline; justify-content:space-between; gap:10px;}
+  .brand{display:flex; align-items:baseline; justify-content:space-between;}
   .brand h1{
     margin:0; font-family:var(--grotesk); font-weight:700; font-size:20px;
     letter-spacing:0.02em;
   }
   .brand h1 .dot{color:var(--teal);}
-  .brand .right{display:flex; align-items:baseline; gap:10px;}
   .brand time{font-family:var(--mono); font-size:11px; color:var(--text-dim); letter-spacing:0.03em; text-transform:uppercase;}
-  .signout{background:none; border:none; color:var(--text-faint); font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:0.04em; cursor:pointer; text-decoration:underline;}
-  .status-strip{display:flex; gap:14px; margin-top:12px; font-family:var(--mono); font-size:11px; flex-wrap:wrap;}
+  .status-strip{display:flex; gap:14px; margin-top:12px; font-family:var(--mono); font-size:11px;}
   .status-chip{display:flex; align-items:center; gap:6px; color:var(--text-dim);}
   .led{width:7px; height:7px; border-radius:50%; flex-shrink:0;}
   .led.on-red{background:var(--red); box-shadow:0 0 6px 1px rgba(226,88,92,0.7);}
@@ -98,14 +77,6 @@
   }
   .section-label:first-child{margin-top:2px;}
 
-  /* ---- reminder nudge ---- */
-  .nudge{
-    display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:10px;
-    background:var(--surface); border:1px solid rgba(242,169,59,0.35); border-radius:10px; padding:9px 12px;
-    font-family:var(--mono); font-size:11px; color:var(--text-dim);
-  }
-  .nudge button{background:var(--amber); color:#14161b; border:none; border-radius:16px; padding:5px 12px; font-family:var(--mono); font-size:10.5px; font-weight:600; cursor:pointer; white-space:nowrap;}
-
   /* ---- add bar (shared) ---- */
   .add-bar{
     display:flex; gap:8px; background:var(--surface); border:1px solid var(--border);
@@ -122,18 +93,12 @@
     cursor:pointer;
   }
   .add-btn:active{transform:scale(0.94);}
-  .mic-btn{
-    background:none; border:1px solid var(--border); color:var(--text-dim); width:30px; height:30px; border-radius:8px;
-    display:flex; align-items:center; justify-content:center; flex-shrink:0; cursor:pointer; font-size:15px;
-  }
-  .mic-btn.on{border-color:var(--amber); color:var(--amber); background:rgba(242,169,59,0.1); animation:pulse 1.2s infinite;}
-  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(242,169,59,.5);}50%{box-shadow:0 0 0 6px rgba(242,169,59,0);}}
   .add-extra{
     display:flex; gap:8px; margin-top:8px; overflow-x:auto; padding-bottom:2px;
   }
   .chip-select{
     font-family:var(--mono); font-size:11px; background:var(--surface); border:1px solid var(--border);
-    color:var(--text-dim); border-radius:20px; padding:6px 10px; white-space:nowrap; flex-shrink:0; cursor:pointer;
+    color:var(--text-dim); border-radius:20px; padding:6px 10px; white-space:nowrap; flex-shrink:0;
   }
   .chip-select.active{border-color:var(--teal); color:var(--teal);}
   .date-input, select.chip-select{
@@ -161,13 +126,11 @@
   .task-body{flex:1; min-width:0;}
   .task-title{font-size:14.5px; line-height:1.35; word-break:break-word;}
   .task-row.done .task-title{color:var(--text-faint); text-decoration:line-through;}
-  .task-notes{font-size:12px; color:var(--text-faint); margin-top:3px; line-height:1.4; white-space:pre-wrap; word-break:break-word;}
   .task-meta{display:flex; gap:8px; margin-top:3px; font-family:var(--mono); font-size:10.5px; color:var(--text-dim); flex-wrap:wrap;}
   .task-meta .due{color:var(--text-dim);}
   .task-row.due-today .task-meta .due{color:var(--amber);}
   .task-row.overdue .task-meta .due{color:var(--red);}
   .tag{padding:1px 6px; border-radius:8px; background:var(--surface-raised); color:var(--text-dim);}
-  .tag.accent{color:var(--teal);}
   .prio-high{color:var(--red);}
   .prio-med{color:var(--amber);}
   .del-btn{
@@ -251,6 +214,12 @@
     width:100%; background:var(--surface); border:1px solid var(--border); border-radius:8px; color:var(--text);
     font-family:var(--grotesk); font-size:14.5px; padding:10px 12px; margin-bottom:10px; outline:none;
   }
+  .sheet input[type=date], .sheet select{
+    width:100%; background:var(--surface); border:1px solid var(--border); border-radius:8px; color:var(--text);
+    font-family:var(--mono); font-size:13px; padding:10px 12px; margin-bottom:10px; outline:none;
+  }
+  .sheet label{display:block; font-family:var(--mono); font-size:10.5px; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-faint); margin:0 0 4px 2px;}
+  .task-body{cursor:pointer;}
   .sheet textarea{min-height:90px; resize:vertical; font-family:var(--grotesk);}
   .sheet .row2{display:flex; gap:8px;}
   .sheet .row2 > *{flex:1;}
@@ -263,38 +232,15 @@
     flex:1; background:none; border:1px solid var(--border); color:var(--text-dim); border-radius:8px; padding:11px 0;
     font-family:var(--grotesk); font-size:14px; cursor:pointer;
   }
-
-  .toast{
-    position:fixed; left:50%; bottom:74px; transform:translateX(-50%);
-    background:var(--surface-raised); border:1px solid var(--teal); color:var(--text);
-    padding:9px 15px; border-radius:9px; font-size:12.5px; font-family:var(--mono); z-index:60; opacity:0;
-    transition:opacity .25s, transform .25s; pointer-events:none; max-width:88vw; text-align:center;
-  }
-  .toast.show{opacity:1; transform:translateX(-50%) translateY(-4px);}
 </style>
 </head>
 <body>
-
-<!-- Sign-in gate: shown until Firebase Auth resolves a signed-in user -->
-<div id="auth-gate">
-  <div class="mark">LOG<span class="dot">·</span>BOOK</div>
-  <p>Sign in with the same Google account on your phone and laptop to share one synced list between them.</p>
-  <button class="g-btn" id="google-signin-btn">
-    <svg width="17" height="17" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l5.7-5.7C34.9 6 29.7 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.2-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.2 18.9 12 24 12c3.1 0 5.8 1.1 8 3l5.7-5.7C34.9 6 29.7 4 24 4c-7.5 0-14 4.1-17.7 10.7z"/><path fill="#4CAF50" d="M24 44c5.6 0 10.7-2.1 14.5-5.6l-6.7-5.5C29.7 34.7 27 36 24 36c-5.3 0-9.7-3.3-11.3-8l-6.6 5.1C9.9 39.7 16.4 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.2 5.7l6.7 5.5C41.5 36.4 44 30.9 44 24c0-1.2-.1-2.4-.4-3.5z"/></svg>
-    Sign in with Google
-  </button>
-  <p class="err" id="auth-err"></p>
-</div>
-
 <div id="app">
 
   <header>
     <div class="brand">
       <h1>LOG<span class="dot">·</span>BOOK</h1>
-      <div class="right">
-        <time id="headerDate"></time>
-        <button class="signout" id="signOutBtn">Sign out</button>
-      </div>
+      <time id="headerDate"></time>
     </div>
     <div class="status-strip" id="statusStrip"></div>
   </header>
@@ -302,28 +248,13 @@
   <main>
     <!-- TASKS -->
     <section class="view active" id="view-tasks">
-      <div class="nudge" id="notifNudge" style="display:none;">
-        <span>Turn on reminders for due tasks</span>
-        <button id="notifEnableBtn">Enable</button>
-      </div>
-
       <div class="add-bar">
-        <input type="text" id="taskInput" placeholder="Add a task… (or dictate)" maxlength="500">
-        <button class="mic-btn" id="micBtn" title="Voice to text">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"/><path d="M19 11a7 7 0 0 1-14 0M12 18v3" stroke-linecap="round"/></svg>
-        </button>
+        <input type="text" id="taskInput" placeholder="Add a task…" maxlength="140">
         <button class="add-btn" id="taskAddBtn">+</button>
       </div>
       <div class="add-extra">
+        <span class="chip-select">Due</span>
         <input type="date" class="date-input" id="taskDueInput">
-        <input type="time" class="date-input" id="taskTimeInput" value="09:00">
-        <span class="chip-select" id="taskRepeatChip" data-active="0">↻ Daily</span>
-        <select class="chip-select" id="taskRemindInput">
-          <option value="0">Remind at time</option>
-          <option value="10">10 min before</option>
-          <option value="30">30 min before</option>
-          <option value="60">1 hr before</option>
-        </select>
         <select class="chip-select" id="taskPrioInput">
           <option value="low">Low priority</option>
           <option value="med">Medium</option>
@@ -406,57 +337,58 @@
   </div>
 </div>
 
-<div class="toast" id="toast"></div>
-
-<!-- Firebase (compat build — plain <script> tags, no bundler needed) -->
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<!-- Task edit sheet -->
+<div class="sheet-overlay" id="taskSheetOverlay">
+  <div class="sheet">
+    <h3>Edit task</h3>
+    <input type="text" id="taskEditText" placeholder="Task" maxlength="140">
+    <label for="taskEditDue">Due date</label>
+    <input type="date" id="taskEditDue">
+    <div class="row2">
+      <div>
+        <label for="taskEditPrio">Priority</label>
+        <select id="taskEditPrio">
+          <option value="low">Low</option>
+          <option value="med">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </div>
+      <div>
+        <label for="taskEditTag">Tag</label>
+        <select id="taskEditTag">
+          <option value="">No tag</option>
+          <option value="Work">Work</option>
+          <option value="Personal">Personal</option>
+          <option value="Errand">Errand</option>
+        </select>
+      </div>
+    </div>
+    <div class="sheet-actions">
+      <button class="btn-secondary" id="taskEditCancel">Cancel</button>
+      <button class="btn-primary" id="taskEditSave">Save</button>
+    </div>
+  </div>
+</div>
 
 <script>
 (function(){
   "use strict";
 
-  /* =========================================================
-     FIREBASE SETUP — paste your project's config below.
-     Firebase console (console.firebase.google.com) → your
-     project → gear icon → Project settings → scroll to
-     "Your apps" → the web app → "SDK setup and configuration"
-     → "Config". Copy that whole object in here.
-     ========================================================= */
-  var firebaseConfig = {
-    apiKey: "AIzaSyCS1O5Nzaa-SdZLZ0kpwHiW_Xtr_DDrda8",
-    authDomain: "logbook-901e8.firebaseapp.com",
-    projectId: "logbook-901e8",
-    storageBucket: "logbook-901e8.firebasestorage.app",
-    messagingSenderId: "571389010322",
-    appId: "1:571389010322:web:0791f30b533d0cce9be14b"
-  };
-  /* ========================================================= */
-
-  var configIsFilledIn = !/PASTE_/.test(JSON.stringify(firebaseConfig));
-  var auth = null, db = null;
-
-  if (!configIsFilledIn){
-    document.getElementById('auth-err').textContent =
-      'Firebase config not set yet — open this file and paste in your project config near the top of the <script> section.';
-  } else {
-    firebase.initializeApp(firebaseConfig);
-    auth = firebase.auth();
-    db = firebase.firestore();
-    db.enablePersistence({synchronizeTabs:true}).catch(function(){ /* multi-tab or unsupported: fine, just no offline cache */ });
-  }
-
-  var currentUid = null;
-  var unsubTasks = null, unsubEvents = null, unsubNotes = null;
-  function tasksCol(){ return db.collection('users').doc(currentUid).collection('tasks'); }
-  function eventsCol(){ return db.collection('users').doc(currentUid).collection('events'); }
-  function notesCol(){ return db.collection('users').doc(currentUid).collection('notes'); }
-
   /* ---------- state ---------- */
-  var state = { tasks: [], events: [], notes: [] };
+  var STORAGE_KEY = "logbook_state_v1";
+  var state = load();
 
-  function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,8); }
+  function load(){
+    try{
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if(raw) return JSON.parse(raw);
+    }catch(e){}
+    return { tasks: [], events: [], notes: [], nextId: 1 };
+  }
+  function save(){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
+  }
+  function uid(){ return state.nextId++; }
 
   /* ---------- date helpers ---------- */
   function ymd(d){
@@ -467,35 +399,6 @@
   function fmtHeaderDate(){
     var d = new Date();
     return d.toLocaleDateString(undefined, { weekday:'short', month:'short', day:'numeric' }).toUpperCase();
-  }
-  function fmtTime(t){
-    if(!t) return "";
-    var p = t.split(":"); var h = +p[0]; var m = p[1];
-    var ampm = h>=12 ? "PM" : "AM";
-    var h12 = h%12; if(h12===0) h12=12;
-    return h12+":"+m+" "+ampm;
-  }
-  function esc(s){
-    var d = document.createElement("div");
-    d.textContent = s || "";
-    return d.innerHTML;
-  }
-  function toast(msg){
-    var t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('show');
-    clearTimeout(toast._h);
-    toast._h = setTimeout(function(){ t.classList.remove('show'); }, 2400);
-  }
-
-  /* ---------- daily-repeat helpers ---------- */
-  function isTaskDoneToday(task){
-    var today = todayStr();
-    return task.repeatDaily ? (task.completedDates||[]).indexOf(today) !== -1 : !!task.done;
-  }
-  function taskDueDateTime(task){
-    if(!task.due) return null;
-    return new Date(task.due + "T" + (task.dueTime || "09:00") + ":00");
   }
 
   /* ---------- view switching ---------- */
@@ -509,10 +412,6 @@
       views.forEach(function(v){ v.classList.toggle("active", v.id === "view-"+name); });
     });
   });
-  function switchTab(name){
-    tabs.forEach(function(t){ t.classList.toggle("active", t.getAttribute("data-view")===name); });
-    views.forEach(function(v){ v.classList.toggle("active", v.id === "view-"+name); });
-  }
 
   /* ---------- header / status strip ---------- */
   document.getElementById("headerDate").textContent = fmtHeaderDate();
@@ -521,7 +420,7 @@
     var t = todayStr();
     var overdue=0, dueToday=0, upcoming=0;
     state.tasks.forEach(function(task){
-      if(isTaskDoneToday(task)) return;
+      if(task.done) return;
       if(!task.due){ upcoming++; return; }
       if(task.due < t) overdue++;
       else if(task.due === t) dueToday++;
@@ -531,73 +430,36 @@
     el.innerHTML =
       chip("on-red", overdue, "overdue") +
       chip("on-amber", dueToday, "due today") +
-      chip("on-teal", upcoming, "open") +
-      syncChip();
+      chip("on-teal", upcoming, "open");
     function chip(cls, n, label){
       return '<span class="status-chip"><span class="led '+(n>0?cls:'off')+'"></span><b>'+n+'</b> '+label+'</span>';
     }
   }
-  var syncState = 'connecting';
-  function syncChip(){
-    var cls = syncState === 'online' ? 'on-teal' : syncState === 'offline' ? 'on-amber' : 'off';
-    var label = syncState === 'online' ? 'synced' : syncState === 'offline' ? 'offline — will sync' : 'connecting';
-    return '<span class="status-chip"><span class="led '+cls+'"></span>'+label+'</span>';
-  }
-  function setSyncState(s){ syncState = s; renderStatusStrip(); }
-  window.addEventListener('online', function(){ setSyncState('online'); });
-  window.addEventListener('offline', function(){ setSyncState('offline'); });
 
   /* ---------- TASKS ---------- */
   var taskInput = document.getElementById("taskInput");
   var taskDueInput = document.getElementById("taskDueInput");
-  var taskTimeInput = document.getElementById("taskTimeInput");
-  var taskRepeatChip = document.getElementById("taskRepeatChip");
-  var taskRemindInput = document.getElementById("taskRemindInput");
   var taskPrioInput = document.getElementById("taskPrioInput");
   var taskTagInput = document.getElementById("taskTagInput");
   var currentFilter = "active";
 
-  taskRepeatChip.addEventListener("click", function(){
-    var active = taskRepeatChip.getAttribute("data-active") === "1";
-    taskRepeatChip.setAttribute("data-active", active ? "0" : "1");
-    taskRepeatChip.classList.toggle("active", !active);
-  });
+  document.getElementById("taskAddBtn").addEventListener("click", addTask);
+  taskInput.addEventListener("keydown", function(e){ if(e.key==="Enter") addTask(); });
 
-  var pendingVoiceSource = false;
-  document.getElementById("taskAddBtn").addEventListener("click", function(){
-    addTask(pendingVoiceSource ? 'voice' : 'manual');
-    pendingVoiceSource = false;
-  });
-  taskInput.addEventListener("keydown", function(e){
-    if(e.key==="Enter"){ addTask(pendingVoiceSource ? 'voice' : 'manual'); pendingVoiceSource = false; }
-  });
-  taskInput.addEventListener("input", function(){ pendingVoiceSource = false; });
-
-  function addTask(source, override){
-    var text = (override && override.text) || taskInput.value.trim();
+  function addTask(){
+    var text = taskInput.value.trim();
     if(!text) return;
-    var task = {
+    state.tasks.unshift({
       id: uid(),
       text: text,
-      notes: (override && override.notes) || "",
-      due: (override && override.due != null) ? override.due : (taskDueInput.value || ""),
-      dueTime: (override && override.dueTime) || (taskTimeInput.value || "09:00"),
-      repeatDaily: override ? !!override.repeatDaily : taskRepeatChip.getAttribute("data-active")==="1",
-      remindMinutesBefore: override ? (override.remindMinutesBefore||0) : Number(taskRemindInput.value||0),
-      priority: (override && override.priority) || taskPrioInput.value,
-      tag: (override && override.tag) || taskTagInput.value,
-      done: false,
-      completedDates: [],
-      source: source || "manual",
-      createdAt: Date.now()
-    };
-    tasksCol().doc(task.id).set(task);
+      due: taskDueInput.value || "",
+      priority: taskPrioInput.value,
+      tag: taskTagInput.value,
+      done: false
+    });
     taskInput.value = "";
     taskDueInput.value = "";
-    taskTimeInput.value = "09:00";
-    taskRemindInput.value = "0";
-    taskRepeatChip.setAttribute("data-active","0");
-    taskRepeatChip.classList.remove("active");
+    save(); renderTasks(); renderStatusStrip(); renderDayStrip(); renderAgenda();
   }
 
   document.querySelectorAll("#taskFilters .chip-select").forEach(function(el){
@@ -614,17 +476,15 @@
     var t = todayStr();
     var items = state.tasks.slice();
     items = items.filter(function(task){
-      var done = isTaskDoneToday(task);
-      if(currentFilter==="active") return !done;
-      if(currentFilter==="done") return done;
+      if(currentFilter==="active") return !task.done;
+      if(currentFilter==="done") return task.done;
       return true;
     });
     items.sort(function(a,b){
-      var ad0 = isTaskDoneToday(a), bd0 = isTaskDoneToday(b);
-      if(ad0 !== bd0) return ad0 ? 1 : -1;
+      if(a.done !== b.done) return a.done ? 1 : -1;
       var ad = a.due || "9999-99-99", bd = b.due || "9999-99-99";
       if(ad !== bd) return ad < bd ? -1 : 1;
-      return (a.createdAt||0) - (b.createdAt||0);
+      return 0;
     });
 
     if(items.length===0){
@@ -633,28 +493,24 @@
     }
 
     list.innerHTML = items.map(function(task, idx){
-      var done = isTaskDoneToday(task);
       var statusClass = "";
-      if(!done){
+      if(!task.done){
         if(task.due && task.due < t) statusClass = "overdue";
         else if(task.due === t) statusClass = "due-today";
       }
-      var ledClass = done ? "on-green" : (statusClass==="overdue" ? "on-red" : statusClass==="due-today" ? "on-amber" : "on-teal");
-      var dueLabel = task.due ? fmtDueLabel(task.due, t, task.dueTime) : "";
+      var ledClass = task.done ? "on-green" : (statusClass==="overdue" ? "on-red" : statusClass==="due-today" ? "on-amber" : "on-teal");
+      var dueLabel = task.due ? fmtDueLabel(task.due, t) : "";
       var prioLabel = task.priority==="high" ? '<span class="prio-high">HIGH</span>' : task.priority==="med" ? '<span class="prio-med">MED</span>' : "";
       var tagLabel = task.tag ? '<span class="tag">'+esc(task.tag)+'</span>' : "";
-      var dailyLabel = task.repeatDaily ? '<span class="tag accent">↻ DAILY</span>' : "";
-      var sourceLabel = task.source === "voice" ? '<span class="tag">🎤 VOICE</span>' : task.source === "share" ? '<span class="tag">📤 SHARED</span>' : "";
-      var meta = [dueLabel?('<span class="due">'+dueLabel+'</span>'):"", prioLabel, tagLabel, dailyLabel, sourceLabel].filter(Boolean).join("");
+      var meta = [dueLabel?('<span class="due">'+dueLabel+'</span>'):"", prioLabel, tagLabel].filter(Boolean).join("");
 
-      return '<div class="task-row '+(done?'done':'')+' '+statusClass+'" data-id="'+task.id+'">'+
+      return '<div class="task-row '+(task.done?'done':'')+' '+statusClass+'" data-id="'+task.id+'">'+
         '<span class="id">'+String(idx+1).padStart(2,"0")+'</span>'+
         '<div class="ledwrap"><span class="led '+ledClass+'"></span></div>'+
         '<div class="task-check" data-action="toggle">'+
           '<svg viewBox="0 0 24 24" fill="none" stroke="#6bcf7f" stroke-width="3"><path d="M5 12l5 5 9-11" stroke-linecap="round" stroke-linejoin="round"/></svg>'+
         '</div>'+
         '<div class="task-body"><div class="task-title">'+esc(task.text)+'</div>'+
-          (task.notes ? '<div class="task-notes">'+esc(task.notes)+'</div>' : '')+
           (meta?'<div class="task-meta">'+meta+'</div>':'')+
         '</div>'+
         '<button class="del-btn" data-action="delete">×</button>'+
@@ -662,38 +518,60 @@
     }).join("");
   }
 
-  function fmtDueLabel(due, t, dueTime){
-    var timeSuffix = (dueTime && dueTime !== "09:00") ? (" " + fmtTime(dueTime)) : (dueTime ? " " + fmtTime(dueTime) : "");
-    if(due===t) return "TODAY" + timeSuffix;
+  function fmtDueLabel(due, t){
+    if(due===t) return "TODAY";
     var d = parseDate(due), td = parseDate(t);
     var diffDays = Math.round((d-td)/86400000);
-    if(diffDays === 1) return "TOMORROW" + timeSuffix;
+    if(diffDays === 1) return "TOMORROW";
     if(diffDays < 0) return Math.abs(diffDays)+"D OVERDUE";
-    return d.toLocaleDateString(undefined,{month:'short',day:'numeric'}).toUpperCase() + timeSuffix;
+    return d.toLocaleDateString(undefined,{month:'short',day:'numeric'}).toUpperCase();
   }
 
   document.getElementById("taskList").addEventListener("click", function(e){
     var row = e.target.closest(".task-row");
     if(!row) return;
-    var id = row.getAttribute("data-id");
+    var id = +row.getAttribute("data-id");
     var action = e.target.closest("[data-action]");
-    if(!action) return;
     var task = state.tasks.find(function(x){ return x.id===id; });
     if(!task) return;
-    if(action.getAttribute("data-action")==="toggle"){
-      var today = todayStr();
-      var updated = Object.assign({}, task);
-      if(updated.repeatDaily){
-        updated.completedDates = (updated.completedDates||[]).slice();
-        var i = updated.completedDates.indexOf(today);
-        if(i>=0) updated.completedDates.splice(i,1); else updated.completedDates.push(today);
-      } else {
-        updated.done = !updated.done;
-      }
-      tasksCol().doc(id).set(updated);
-    } else if(action.getAttribute("data-action")==="delete"){
-      tasksCol().doc(id).delete();
+    if(!action){
+      if(e.target.closest(".task-body")) openTaskEditor(task);
+      return;
     }
+    if(action.getAttribute("data-action")==="toggle"){
+      task.done = !task.done;
+    } else if(action.getAttribute("data-action")==="delete"){
+      state.tasks = state.tasks.filter(function(x){ return x.id!==id; });
+    }
+    save(); renderTasks(); renderStatusStrip();
+  });
+
+  var editingTaskId = null;
+  var taskSheetOverlay = document.getElementById("taskSheetOverlay");
+  function openTaskEditor(task){
+    editingTaskId = task.id;
+    document.getElementById("taskEditText").value = task.text;
+    document.getElementById("taskEditDue").value = task.due || "";
+    document.getElementById("taskEditPrio").value = task.priority || "low";
+    document.getElementById("taskEditTag").value = task.tag || "";
+    taskSheetOverlay.classList.add("open");
+  }
+  document.getElementById("taskEditCancel").addEventListener("click", function(){
+    taskSheetOverlay.classList.remove("open");
+  });
+  document.getElementById("taskEditSave").addEventListener("click", function(){
+    var task = state.tasks.find(function(x){ return x.id===editingTaskId; });
+    if(task){
+      task.text = document.getElementById("taskEditText").value.trim() || task.text;
+      task.due = document.getElementById("taskEditDue").value || "";
+      task.priority = document.getElementById("taskEditPrio").value;
+      task.tag = document.getElementById("taskEditTag").value;
+      save(); renderTasks(); renderStatusStrip();
+    }
+    taskSheetOverlay.classList.remove("open");
+  });
+  taskSheetOverlay.addEventListener("click", function(e){
+    if(e.target===taskSheetOverlay) taskSheetOverlay.classList.remove("open");
   });
 
   /* ---------- PLANNER ---------- */
@@ -708,9 +586,9 @@
     if(!text) return;
     var start = document.getElementById("eventStartInput").value || "09:00";
     var end = document.getElementById("eventEndInput").value || "";
-    var ev = { id: uid(), date: selectedDay, title: text, start: start, end: end };
-    eventsCol().doc(ev.id).set(ev);
+    state.events.push({ id: uid(), date: selectedDay, title: text, start: start, end: end });
     input.value = "";
+    save(); renderAgenda(); renderDayStrip();
   }
 
   function renderDayStrip(){
@@ -764,14 +642,23 @@
     }).join("");
   }
 
+  function fmtTime(t){
+    if(!t) return "";
+    var p = t.split(":"); var h = +p[0]; var m = p[1];
+    var ampm = h>=12 ? "PM" : "AM";
+    var h12 = h%12; if(h12===0) h12=12;
+    return h12+":"+m+" "+ampm;
+  }
+
   document.getElementById("agendaList").addEventListener("click", function(e){
     var item = e.target.closest(".agenda-item");
     if(!item) return;
     var action = e.target.closest("[data-action]");
     if(!action) return;
-    var id = item.getAttribute("data-id");
+    var id = +item.getAttribute("data-id");
     if(action.getAttribute("data-action")==="delete-event"){
-      eventsCol().doc(id).delete();
+      state.events = state.events.filter(function(x){ return x.id!==id; });
+      save(); renderAgenda(); renderDayStrip();
     }
   });
 
@@ -783,9 +670,9 @@
     var input = document.getElementById("noteInput");
     var title = input.value.trim();
     if(!title) return;
-    var note = { id: uid(), title: title, body: "", pinned:false, updated: Date.now() };
-    notesCol().doc(note.id).set(note);
+    state.notes.unshift({ id: uid(), title: title, body: "", pinned:false, updated: Date.now() });
     input.value = "";
+    save(); renderNotes();
   }
 
   function renderNotes(){
@@ -817,14 +704,14 @@
   document.getElementById("noteList").addEventListener("click", function(e){
     var card = e.target.closest(".note-card");
     if(!card) return;
-    var id = card.getAttribute("data-id");
+    var id = +card.getAttribute("data-id");
     var action = e.target.closest("[data-action]");
     if(!action) return;
     var note = state.notes.find(function(x){ return x.id===id; });
     if(!note) return;
     var act = action.getAttribute("data-action");
-    if(act==="pin"){ notesCol().doc(id).set(Object.assign({}, note, {pinned: !note.pinned})); }
-    else if(act==="delete"){ notesCol().doc(id).delete(); }
+    if(act==="pin"){ note.pinned = !note.pinned; save(); renderNotes(); }
+    else if(act==="delete"){ state.notes = state.notes.filter(function(x){ return x.id!==id; }); save(); renderNotes(); }
     else if(act==="edit"){ openNoteEditor(note); }
   });
 
@@ -840,9 +727,10 @@
   document.getElementById("noteEditSave").addEventListener("click", function(){
     var note = state.notes.find(function(x){ return x.id===editingNoteId; });
     if(note){
-      var title = document.getElementById("noteEditTitle").value.trim() || note.title;
-      var body = document.getElementById("noteEditBody").value;
-      notesCol().doc(note.id).set(Object.assign({}, note, {title:title, body:body, updated: Date.now()}));
+      note.title = document.getElementById("noteEditTitle").value.trim() || note.title;
+      note.body = document.getElementById("noteEditBody").value;
+      note.updated = Date.now();
+      save(); renderNotes();
     }
     noteSheetOverlay.classList.remove("open");
   });
@@ -850,175 +738,26 @@
     if(e.target===noteSheetOverlay) noteSheetOverlay.classList.remove("open");
   });
 
-  /* ---------- voice to text ---------- */
-  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  var micBtn = document.getElementById('micBtn');
-  if (!SR){
-    micBtn.style.display = 'none';
-  } else {
-    var recognizing = false;
-    var rec = new SR();
-    rec.continuous = false;
-    rec.interimResults = true;
-    rec.lang = 'en-US';
-    var baseText = '';
-    rec.onstart = function(){ recognizing = true; micBtn.classList.add('on'); baseText = taskInput.value; };
-    rec.onend = function(){ recognizing = false; micBtn.classList.remove('on'); };
-    rec.onerror = function(){ recognizing = false; micBtn.classList.remove('on'); toast('Voice input error — try again'); };
-    rec.onresult = function(e){
-      var interim = '', final = '';
-      for (var i = e.resultIndex; i < e.results.length; i++){
-        var tr = e.results[i][0].transcript;
-        if (e.results[i].isFinal) final += tr; else interim += tr;
-      }
-      var sep = baseText && !/\s$/.test(baseText) ? ' ' : '';
-      taskInput.value = (baseText + sep + final + interim).trim();
-      if (final){ baseText = taskInput.value; pendingVoiceSource = true; }
-    };
-    micBtn.addEventListener('click', function(){
-      if (recognizing){ rec.stop(); return; }
-      try { rec.start(); } catch(e) { /* already started */ }
+  /* ---------- util ---------- */
+  function esc(s){
+    var d = document.createElement("div");
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  /* ---------- init ---------- */
+  renderStatusStrip();
+  renderTasks();
+  renderDayStrip();
+  renderAgenda();
+  renderNotes();
+
+  /* ---------- service worker ---------- */
+  if("serviceWorker" in navigator){
+    window.addEventListener("load", function(){
+      navigator.serviceWorker.register("sw.js").catch(function(){});
     });
   }
-
-  /* ---------- share target handling ---------- */
-  var pendingShareParams = null;
-  (function stashShareParams(){
-    var params = new URLSearchParams(location.search);
-    var title = params.get('share_title') || params.get('title');
-    var text = params.get('share_text') || params.get('text');
-    var url = params.get('share_url') || params.get('url');
-    if (title || text || url) pendingShareParams = {title:title, text:text, url:url};
-    history.replaceState({}, '', location.pathname);
-  })();
-  function applyPendingShare(){
-    if (!pendingShareParams) return;
-    var title = pendingShareParams.title, text = pendingShareParams.text, url = pendingShareParams.url;
-    pendingShareParams = null;
-    var bodyParts = [text, url].filter(Boolean);
-    var finalTitle = (title && title.trim()) || (text ? text.trim().slice(0,90) : 'Shared item');
-    addTask('share', {text: finalTitle, notes: bodyParts.join('\n'), due:'', dueTime:'09:00', repeatDaily:false, remindMinutesBefore:0, priority:'low', tag:''});
-    switchTab('tasks');
-    toast('Added from share — set a due date if it needs one');
-  }
-
-  /* ---------- notifications ---------- */
-  var swReg = null;
-  function initServiceWorker(){
-    if (!('serviceWorker' in navigator)) return;
-    navigator.serviceWorker.register('sw.js').then(function(reg){ swReg = reg; }).catch(function(){});
-  }
-  function updateNotifRow(){
-    var row = document.getElementById('notifNudge');
-    if (!('Notification' in window)){ row.style.display = 'none'; return; }
-    row.style.display = Notification.permission === 'granted' ? 'none' : 'flex';
-  }
-  document.getElementById('notifEnableBtn').addEventListener('click', function(){
-    if (!('Notification' in window)){ toast('Notifications not supported on this browser'); return; }
-    Notification.requestPermission().then(function(perm){
-      updateNotifRow();
-      if (perm === 'granted'){ toast('Reminders enabled'); checkReminders(); }
-    });
-  });
-
-  var notifiedKeys = {};
-  try { notifiedKeys = JSON.parse(localStorage.getItem('logbook_notified') || '{}'); } catch(e){}
-  function persistNotified(){
-    try { localStorage.setItem('logbook_notified', JSON.stringify(notifiedKeys)); } catch(e){}
-  }
-  function checkReminders(){
-    if (!('Notification' in window) || Notification.permission !== 'granted') return;
-    var today = todayStr();
-    var now = Date.now();
-    state.tasks.forEach(function(task){
-      if (isTaskDoneToday(task) || !task.due) return;
-      var due = taskDueDateTime(task);
-      if (!due) return;
-      var fireAt = due.getTime() - (task.remindMinutesBefore||0)*60000;
-      if (now < fireAt) return;
-      var key = task.id + ':' + today;
-      if (notifiedKeys[key]) return;
-      notifiedKeys[key] = true;
-      persistNotified();
-      var body = (task.dueTime ? 'Due ' + fmtTime(task.dueTime) : 'Due today') + (task.repeatDaily ? ' · every day' : '');
-      if (swReg){ swReg.showNotification(task.text, {body: body, tag: 'logbook-'+task.id}); }
-      else { try { new Notification(task.text, {body: body}); } catch(e){} }
-    });
-  }
-
-  /* ---------- auth ---------- */
-  var gate = document.getElementById('auth-gate');
-  var appEl = document.getElementById('app');
-
-  document.getElementById('google-signin-btn').addEventListener('click', function(){
-    if (!auth) return;
-    document.getElementById('auth-err').textContent = '';
-    var provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider).catch(function(err){
-      if (err && err.code === 'auth/popup-blocked'){
-        document.getElementById('auth-err').textContent = 'Your browser blocked the sign-in popup — allow popups for this site and try again.';
-      } else if (err && err.code === 'auth/cancelled-popup-request'){
-        // user clicked twice / a second popup was requested; ignore
-      } else if (err && err.code === 'auth/popup-closed-by-user'){
-        // user closed the popup; no error needed
-      } else {
-        document.getElementById('auth-err').textContent = (err && (err.code + ': ' + err.message)) || String(err);
-      }
-    });
-  });
-  document.getElementById('signOutBtn').addEventListener('click', function(){
-    if (unsubTasks) unsubTasks();
-    if (unsubEvents) unsubEvents();
-    if (unsubNotes) unsubNotes();
-    auth.signOut();
-  });
-
-  function subscribeData(){
-    unsubTasks = tasksCol().onSnapshot(function(snap){
-      state.tasks = snap.docs.map(function(d){ return d.data(); });
-      renderTasks(); renderStatusStrip(); checkReminders();
-      setSyncState(navigator.onLine ? 'online' : 'offline');
-    }, function(){ setSyncState('offline'); });
-    unsubEvents = eventsCol().onSnapshot(function(snap){
-      state.events = snap.docs.map(function(d){ return d.data(); });
-      renderDayStrip(); renderAgenda();
-    }, function(){});
-    unsubNotes = notesCol().onSnapshot(function(snap){
-      state.notes = snap.docs.map(function(d){ return d.data(); });
-      renderNotes();
-    }, function(){});
-  }
-
-  function boot(){
-    renderDayStrip();
-    renderAgenda();
-    renderTasks();
-    renderNotes();
-    renderStatusStrip();
-
-    if (!auth){
-      gate.classList.remove('hidden');
-      return; // config not filled in yet
-    }
-    auth.onAuthStateChanged(function(user){
-      if (user){
-        currentUid = user.uid;
-        gate.classList.add('hidden');
-        appEl.classList.add('shown');
-        subscribeData();
-        applyPendingShare();
-        initServiceWorker();
-        updateNotifRow();
-        setInterval(checkReminders, 30000);
-        document.addEventListener('visibilitychange', function(){ if (!document.hidden) checkReminders(); });
-      } else {
-        currentUid = null;
-        appEl.classList.remove('shown');
-        gate.classList.remove('hidden');
-      }
-    });
-  }
-  boot();
 })();
 </script>
 </body>

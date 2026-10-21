@@ -30,32 +30,12 @@ self.addEventListener("activate", function(event){
 });
 
 self.addEventListener("fetch", function(event){
-  var req = event.request;
-  // Only cache-manage same-origin GET page/asset requests. Firebase Auth and
-  // Firestore make their own POST/streaming requests to google APIs — those
-  // must go straight to the network untouched, and the Cache API can't even
-  // match a non-GET request (it throws), so bail out early for anything else.
-  if (req.method !== "GET") return;
-  if (new URL(req.url).origin !== self.location.origin) return;
-
   event.respondWith(
-    caches.match(req).then(function(cached){
+    caches.match(event.request).then(function(cached){
       if(cached) return cached;
-      return fetch(req).catch(function(){
+      return fetch(event.request).catch(function(){
         return caches.match("./index.html");
       });
-    })
-  );
-});
-
-self.addEventListener("notificationclick", function(event){
-  event.notification.close();
-  event.waitUntil(
-    self.clients.matchAll({ type: "window" }).then(function(list){
-      for (var i = 0; i < list.length; i++){
-        if ("focus" in list[i]) return list[i].focus();
-      }
-      if (self.clients.openWindow) return self.clients.openWindow("./index.html");
     })
   );
 });
